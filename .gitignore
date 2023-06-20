@@ -1,0 +1,13 @@
+# Microprocessor Project .gitignore file
+
+# Xilinx Vivado
+
+# Constraint files
+*.xdc
+# Project files
+*.xpr
+# Vivado artifacts
+mpu.sim/*
+mpu.hw/*
+mpu.cache/*
+mpu.ip_user_files/*

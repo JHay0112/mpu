@@ -35,10 +35,13 @@ entity ram is
 end ram;
 
 architecture Behavioral of ram is
+
     -- Memory definitions
     type memory_t is array(N-1 downto 0) of std_logic_vector(W-1 downto 0);
     signal memory : memory_t := (others => (others => '0'));
+    
 begin
+
     -- Clock driven changes
     process(clk) is
     begin
@@ -53,4 +56,5 @@ begin
             end if;
         end if;
     end process;
+    
 end Behavioral;

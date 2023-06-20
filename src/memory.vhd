@@ -15,7 +15,7 @@ package memory is
     
     -- RAM configuration
     constant RAM_WIDTH : integer := 16;
-    constant RAM_ADDR_WIDTH : integer := 16;
+    constant RAM_ADDR_WIDTH : integer := 8;
     
     -- RAM specification
     component ram is

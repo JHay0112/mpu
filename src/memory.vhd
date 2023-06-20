@@ -13,6 +13,22 @@ package memory is
     constant NUM_REGISTERS : integer := 16;
     constant REGISTER_ADDR_WIDTH : integer := 4;
     
+    -- Register specification
+    component registers is 
+        generic(
+            W : integer := REGISTER_WIDTH;
+            N : integer := NUM_REGISTERS;
+            A : integer := REGISTER_ADDR_WIDTH
+        );
+        port(
+            clk: std_logic;
+            addr : in std_logic_vector(A-1 downto 0);
+            write : in std_logic;
+            i : in std_logic_vector(W-1 downto 0);
+            o : out std_logic_vector(W-1 downto 0)
+        );
+    end component registers;
+    
     -- RAM configuration
     constant RAM_WIDTH : integer := 16;
     constant RAM_ADDR_WIDTH : integer := 8;

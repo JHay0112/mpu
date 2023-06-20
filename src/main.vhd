@@ -1,43 +1,36 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date: 06/20/2023 03:39:00 PM
--- Design Name: 
--- Module Name: main - Structural
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
+-- Experimental Microprocessor
+--
+-- Author: J. L. Hay
 
+library ieee;
+use ieee.std_logic_1164.all;
 
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
+library work;
+use work.memory;
 
 entity main is
---  Port ( );
+    port(
+        clk_100mhz : in std_logic
+    );
 end main;
 
 architecture Structural of main is
 
+    signal addr : std_logic_vector(memory.RAM_ADDR_WIDTH-1 downto 0) := (others => '0');
+    signal write : std_logic := '0';
+    signal i : std_logic_vector(memory.RAM_WIDTH-1 downto 0) := (others => '1');
+    signal o : std_logic_vector(memory.RAM_WIDTH-1 downto 0);
+    
+
 begin
 
+    working_memory : memory.ram
+    port map(
+        clk => clk_100mhz,
+        write => write,
+        addr => addr,
+        i => i,
+        o => o
+    );
 
 end Structural;

@@ -11,3 +11,4 @@ mpu.sim/*
 mpu.hw/*
 mpu.cache/*
 mpu.ip_user_files/*
+mpu.runs/*

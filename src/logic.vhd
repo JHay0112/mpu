@@ -12,7 +12,6 @@ use work.config.all;
 package logic is 
 
     -- Control logic configuration
-    
 
     -- Control logic specification
     component control is
@@ -32,11 +31,11 @@ package logic is
         );
         port(
             clk : in std_logic;
-            a : in std_logic_vector(W-1 downto 0);
-            b : in std_logic_vector(W-1 downto 0);
+            a : in word;
+            b : in word;
             c : in operator;
             e : in std_logic;
-            o : out std_logic_vector(W-1 downto 0)
+            o : out word
         );
     end component;
 

@@ -29,8 +29,8 @@ package memory is
             clk: std_logic;
             addr : in std_logic_vector(A-1 downto 0);
             write : in std_logic;
-            i : in std_logic_vector(W-1 downto 0);
-            o : out std_logic_vector(W-1 downto 0)
+            i : in word;
+            o : out word
         );
     end component registers;
     
@@ -48,8 +48,8 @@ package memory is
             clk: std_logic;
             addr : in std_logic_vector(A-1 downto 0);
             write : in std_logic;
-            i : in std_logic_vector(W-1 downto 0);
-            o : out std_logic_vector(W-1 downto 0)
+            i : in word;
+            o : out word
         );
     end component ram;
 

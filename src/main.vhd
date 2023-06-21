@@ -24,12 +24,28 @@ architecture Structural of main is
 
     -- Hardware signals
     signal system_clock : std_logic;
-
-    -- Working memory control signals
-    signal addr : std_logic_vector(memory.RAM_ADDR_WIDTH-1 downto 0) := (others => '0');
-    signal write : std_logic := '0';
-    signal i : std_logic_vector(WORD_WIDTH-1 downto 0) := (others => '1');
-    signal o : std_logic_vector(WORD_WIDTH-1 downto 0);
+    
+    -- Main busses
+    signal data_bus : word;
+    signal addr_bus : std_logic_vector(memory.REGISTER_ADDR_WIDTH-1 downto 0);
+    
+    -- Selects which device to enable, used for bus selection
+    type device is (
+        REG,
+        ALU    
+    );
+    signal enable : device := REG;
+    
+    -- ALU signals
+    signal alu_a : word;
+    signal alu_b : word;
+    signal alu_c : logic.operator;
+    signal alu_e : std_logic;
+    signal alu_o : word;
+    
+    -- Register signals
+    signal reg_write : std_logic := '0';
+    signal reg_o : word;
 
 begin
 
@@ -37,26 +53,36 @@ begin
     -- (This is primarily to limit the number of times a rename must occur
     --  to switch between different physical implementations)
     system_clock <= CLK100MHZ;
+    LED <= data_bus;
+    
+    -- Bus selection
+    with enable select data_bus <=
+        reg_o when REG,
+        alu_o when ALU;
+    -- ALU enabling
+    with enable select alu_e <=
+        '1' when ALU,
+        '0' when others;
     
     -- Working device memory
-    working_memory : memory.ram
+    working_memory : memory.registers
     port map(
         clk => system_clock,
-        write => BTNC,
-        addr => SW(memory.RAM_ADDR_WIDTH-1 downto 0),
-        i => i,
-        o => LED
+        write => reg_write,
+        addr => addr_bus,
+        i => data_bus,
+        o => reg_o
     );
     
     -- ALU
-    alu : logic.alu
+    main_alu : logic.alu
     port map(
         clk => system_clock,
-        a => SW,
-        b => SW,
-        c => logic.ADD,
-        e => '1',
-        o => i
+        a => alu_a,
+        b => alu_b,
+        c => alu_c,
+        e => alu_e,
+        o => alu_o
     );
 
 end Structural;

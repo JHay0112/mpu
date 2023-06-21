@@ -17,11 +17,26 @@ package logic is
     end component;
     
     -- ALU configuration
-    
+    type operator is (
+        ADD,
+        SUB
+    );
+    constant ALU_WORD_WIDTH : integer := 16;
     
     -- ALU specification
     component alu is
-        
+        generic(
+            W : integer := ALU_WORD_WIDTH
+        );
+        port(
+            clk : in std_logic;
+            a : in std_logic_vector(W-1 downto 0);
+            b : in std_logic_vector(W-1 downto 0);
+            c : in operator;
+            e : in std_logic;
+            o : out std_logic_vector(W-1 downto 0);
+            r : out std_logic
+        );
     end component;
 
 end package;

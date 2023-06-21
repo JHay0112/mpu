@@ -4,10 +4,11 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
 
 library work;
 use work.memory;
+use work.logic;
 
 entity main is
     port(
@@ -41,9 +42,21 @@ begin
     port map(
         clk => system_clock,
         write => BTNC,
-        addr => SW(memory.RAM_WIDTH-1 downto 0),
+        addr => SW(memory.RAM_ADDR_WIDTH-1 downto 0),
         i => i,
         o => LED
+    );
+    
+    -- ALU
+    alu : logic.alu
+    port map(
+        clk => system_clock,
+        a => SW,
+        b => SW,
+        c => logic.ADD,
+        e => '1',
+        o => i,
+        r => open
     );
 
 end Structural;

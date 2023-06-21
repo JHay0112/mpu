@@ -6,7 +6,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-package memory is 
+package logic is 
 
     -- Control logic configuration
     
@@ -24,4 +24,4 @@ package memory is
         
     end component;
 
-end package memory;
+end package;

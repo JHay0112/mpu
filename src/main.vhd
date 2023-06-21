@@ -28,8 +28,8 @@ architecture Structural of main is
     -- Working memory control signals
     signal addr : std_logic_vector(memory.RAM_ADDR_WIDTH-1 downto 0) := (others => '0');
     signal write : std_logic := '0';
-    signal i : std_logic_vector(memory.RAM_WIDTH-1 downto 0) := (others => '1');
-    signal o : std_logic_vector(memory.RAM_WIDTH-1 downto 0);
+    signal i : std_logic_vector(WORD_WIDTH-1 downto 0) := (others => '1');
+    signal o : std_logic_vector(WORD_WIDTH-1 downto 0);
 
 begin
 

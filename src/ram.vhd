@@ -17,7 +17,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
 
 entity ram is
     generic(
@@ -49,10 +49,10 @@ begin
             -- On rising clock edge
             if (write = '1') then
                 -- Write mode
-                memory(conv_integer(addr)) <= i;
+                memory(to_integer(unsigned(addr))) <= i;
             else
                 -- Read mode
-                o <= memory(conv_integer(addr));
+                o <= memory(to_integer(unsigned(addr)));
             end if;
         end if;
     end process;

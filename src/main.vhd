@@ -7,6 +7,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library work;
+use work.config.all;
 use work.memory;
 use work.logic;
 

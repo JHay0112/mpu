@@ -6,6 +6,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+library work;
+use work.config.all;
+
 package logic is 
 
     -- Control logic configuration
@@ -21,12 +24,11 @@ package logic is
         ADD,
         SUB
     );
-    constant ALU_WORD_WIDTH : integer := 16;
     
     -- ALU specification
     component alu is
         generic(
-            W : integer := ALU_WORD_WIDTH
+            W : integer := WORD_WIDTH
         );
         port(
             clk : in std_logic;

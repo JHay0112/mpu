@@ -6,17 +6,19 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+library work;
+use work.config.all;
+
 package memory is 
 
     -- Register configuration
-    constant REGISTER_WIDTH : integer := 16;
     constant NUM_REGISTERS : integer := 16;
     constant REGISTER_ADDR_WIDTH : integer := 4;
     
     -- Register specification
     component registers is 
         generic(
-            W : integer := REGISTER_WIDTH;
+            W : integer := WORD_WIDTH;
             N : integer := NUM_REGISTERS;
             A : integer := REGISTER_ADDR_WIDTH
         );
@@ -30,13 +32,12 @@ package memory is
     end component registers;
     
     -- RAM configuration
-    constant RAM_WIDTH : integer := 16;
     constant RAM_ADDR_WIDTH : integer := 8;
     
     -- RAM specification
     component ram is
         generic(
-            W : integer := RAM_WIDTH;
+            W : integer := WORD_WIDTH;
             N : integer := 2**RAM_ADDR_WIDTH;
             A : integer := RAM_ADDR_WIDTH
         );

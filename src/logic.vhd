@@ -34,8 +34,7 @@ package logic is
             b : in std_logic_vector(W-1 downto 0);
             c : in operator;
             e : in std_logic;
-            o : out std_logic_vector(W-1 downto 0);
-            r : out std_logic
+            o : out std_logic_vector(W-1 downto 0)
         );
     end component;
 

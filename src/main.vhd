@@ -55,8 +55,7 @@ begin
         b => SW,
         c => logic.ADD,
         e => '1',
-        o => i,
-        r => open
+        o => i
     );
 
 end Structural;

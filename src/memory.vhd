@@ -14,6 +14,9 @@ package memory is
     -- Register configuration
     constant NUM_REGISTERS : integer := 16;
     constant REGISTER_ADDR_WIDTH : integer := 4;
+    constant PC : integer := 15; 
+    constant LR : integer := 14; 
+    constant SP : integer := 13;
     
     -- Register specification
     component registers is 

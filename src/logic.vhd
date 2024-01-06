@@ -17,23 +17,21 @@ package logic is
     component control is
     
     end component;
-    
-    -- ALU configuration
-    type operator is (
-        ADD,
-        SUB
-    );
+
+
+    constant OPCODE_LEN : integer := 7;
+    subtype opcode is std_logic_vector(OPCODE_LEN-1 downto 0);
     
     -- ALU specification
     component alu is
         generic(
-            W : integer := WORD_WIDTH
+            W : integer := WORD_LEN
         );
         port(
             clk : in std_logic;
             a : in word;
             b : in word;
-            c : in operator;
+            c : in opcode;
             e : in std_logic;
             o : out word
         );

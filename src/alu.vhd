@@ -18,11 +18,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library work;
--- This import of logic is a suspect circular import however
--- no errors have been thrown as a result.
--- If this does throw an error it will be necessary to remove 
--- the operator type to a seperate library which will be messy :(
-use work.logic.operator;
+use work.logic.opcode;
 
 entity alu is 
     generic(
@@ -32,7 +28,7 @@ entity alu is
         clk : in std_logic;
         a : in std_logic_vector(W-1 downto 0);
         b : in std_logic_vector(W-1 downto 0);
-        c : in operator;
+        c : in opcode;
         e : in std_logic;
         o : out std_logic_vector(W-1 downto 0)
     );
@@ -51,10 +47,7 @@ begin
             if (e = '1') then
                 -- Determine operation by operator register
                 case (c) is
-                    when ADD =>
-                        o <= std_logic_vector(unsigned(a) + unsigned(b));
-                    when SUB =>
-                        o <= std_logic_vector(unsigned(a) - unsigned(b));
+                    -- ... 
                 end case;
             end if;
         end if;

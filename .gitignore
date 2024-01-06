@@ -1,5 +1,7 @@
 # Microprocessor Project .gitignore file
 
+build/
+
 # Xilinx Vivado
 
 # Constraint files

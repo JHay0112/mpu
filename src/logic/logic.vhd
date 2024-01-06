@@ -11,9 +11,7 @@ use work.config.all;
 
 package logic is 
 
-    -- Control logic configuration
-
-    -- Control logic specification
+    
     component control is
     
     end component;

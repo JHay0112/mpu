@@ -1,7 +1,12 @@
 -- Memory package
+--
 -- Defines the processor's memory and the method of access.
+-- Data and instruction word types are explicitly seperated from the word type defined in config.vhd
+-- to ensure that they may be dealt with independently. Functions are provided to convert between
+-- the types.
 --
 -- Author: J. L. Hay
+
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -9,12 +14,15 @@ use ieee.std_logic_1164.all;
 library work;
 use work.config.all;
 
+
 package memory is 
 
-    -- Register configuration
-    constant NUM_REGISTERS : integer := 16; -- Does not include P.C.
-    constant REGISTER_ADDR_WIDTH : integer := 4;
+    constant DATA_WORD_LEN : integer := 8;
+    subtype data_word is std_logic_vector(DATA_WORD_LEN-1 downto 0);
 
+    constant DATA_MEM_SIZE : integer := 1000; -- Data words
+
+    -- Register adresses
     constant X0  : integer := 0;
     constant X1  : integer := 1;
     constant X2  : integer := 2;
@@ -32,40 +40,11 @@ package memory is
     constant X14 : integer := 14;
     constant X15 : integer := 15;
     constant PC  : integer := 17; 
-    
-    -- Register specification
-    component registers is 
-        generic(
-            W : integer := WORD_WIDTH;
-            N : integer := NUM_REGISTERS + 1;
-            A : integer := REGISTER_ADDR_WIDTH
-        );
-        port(
-            clk: std_logic;
-            addr : in std_logic_vector(A-1 downto 0);
-            write : in std_logic;
-            i : in word;
-            o : out word
-        );
-    end component registers;
-    
-    -- RAM configuration
-    constant RAM_ADDR_WIDTH : integer := 8;
-    
-    -- RAM specification
-    component ram is
-        generic(
-            W : integer := WORD_WIDTH;
-            N : integer := 2**RAM_ADDR_WIDTH;
-            A : integer := RAM_ADDR_WIDTH
-        );
-        port(
-            clk: std_logic;
-            addr : in std_logic_vector(A-1 downto 0);
-            write : in std_logic;
-            i : in word;
-            o : out word
-        );
-    end component ram;
 
+
+    constant INSTR_WORD_LEN : integer := WORD_LEN;
+    subtype instr_word is std_logic_vector(INSTR_WORD_LEN-1 downto 0);
+
+    constant INSTR_MEM_SIZE : integer := 1000; -- Instr. words
+    
 end package memory;

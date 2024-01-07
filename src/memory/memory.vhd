@@ -17,8 +17,8 @@ use work.config.all;
 
 package memory is 
 
-    constant DATA_MEM_SIZE : integer := 1000; -- Bytes
-    constant INSTR_MEM_SIZE : integer := 1000; -- Words
+    constant DATA_MEM_SIZE : integer := 1024; -- Bytes
+    constant INSTR_MEM_SIZE : integer := 512; -- Words
 
     constant DATA_WORD_LEN : integer := 1; -- Bytes
     constant INSTR_WORD_LEN : integer := 4; -- Bytes
@@ -50,6 +50,27 @@ package memory is
     function word(
         bytes : word_byte_array
     ) return word;
+
+
+    entity data_memory is 
+        port(
+            clk : in std_logic;
+            addr : in word;
+            d_in : in word;
+            d_out : out word;
+            rw : in std_logic;
+        );
+    end entity data_memory;
+
+    entity instr_memory is 
+        port(
+            clk : in std_logic;
+            addr : in word;
+            d_in : in word;
+            d_out : out word;
+            rw : in std_logic;
+        );
+    end entity instr_memory;
     
 end package memory;
 

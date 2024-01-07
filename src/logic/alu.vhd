@@ -34,7 +34,7 @@ entity alu is
     );
 end alu;
 
-architecture Behavioral of alu is
+architecture behavioural of alu is
 
 begin
 
@@ -53,4 +53,4 @@ begin
         end if;
     end process;
 
-end Behavioral;
+end behavioural;

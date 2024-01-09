@@ -46,9 +46,11 @@ begin
             -- If the ALU is enabled
             if (e = '1') then
                 -- Determine operation by operator register
-                case (c) is
-                    -- ... 
-                end case;
+                -- case (c) is
+                --     -- ... 
+                -- case others is
+                --     -- ...
+                -- end case;
             end if;
         end if;
     end process;

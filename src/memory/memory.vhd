@@ -47,45 +47,23 @@ package memory is
     -- Byte/word conversion
     type word_byte_array is array (WORD_LEN-1 downto 0) of byte;
 
-    function word(
-        bytes : word_byte_array
-    ) return word;
 
-
-    entity data_memory is 
+    component data_memory is 
         port(
             clk : in std_logic;
             addr : in word;
             d_in : in word;
             d_out : out word;
-            rw : in std_logic;
+            rw : in std_logic
         );
-    end entity data_memory;
+    end component data_memory;
 
-    entity instr_memory is 
+    component instr_memory is 
         port(
             clk : in std_logic;
             addr : in word;
-            d_in : in word;
-            d_out : out word;
-            rw : in std_logic;
+            d_out : out word
         );
-    end entity instr_memory;
+    end component instr_memory;
     
 end package memory;
-
-
-package body memory is
-
-    function word(
-        bytes : word_byte_array
-    ) return word is
-        variable output : word := (others => '0');
-    begin
-        for i in 0 to WORD_LEN-1 loop
-            output(i*WORD_LEN*BYTE_LEN downto (i-1)*WORD_LEN*BYTE_LEN) <= bytes(i);
-        end loop;
-        return output;
-    end word;
-
-end package body memory;

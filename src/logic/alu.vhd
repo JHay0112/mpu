@@ -17,20 +17,19 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library work;
-use work.logic.opcode;
 
 entity alu is 
     generic(
-        W : integer
+        WORD_LEN : integer;
+        OPCODE_LEN : integer
     );
     port(
         clk : in std_logic;
-        a : in std_logic_vector(W-1 downto 0);
-        b : in std_logic_vector(W-1 downto 0);
-        c : in opcode;
+        a : in std_logic_vector(WORD_LEN-1 downto 0);
+        b : in std_logic_vector(WORD_LEN-1 downto 0);
+        c : in std_logic_vector(OPCODE_LEN-1 downto 0);
         e : in std_logic;
-        o : out std_logic_vector(W-1 downto 0)
+        o : out std_logic_vector(WORD_LEN-1 downto 0)
     );
 end alu;
 

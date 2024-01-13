@@ -33,8 +33,8 @@ $(IMPORT_FILE): $(DESIGN_FILES) | $(BUILD_DIR)
 
 
 .PHONY: verify
-verify: $(DESIGN_FILES) $(TEST_FILES) | $(BUILD_DIR)
-	$(VHDL) -s $(VHDL_FLAGS) $^
+verify: $(DESIGN_FILES) $(TEST_FILES) $(IMPORT_FILE) | $(BUILD_DIR)
+	$(VHDL) -s $(VHDL_FLAGS) $(DESIGN_FILES) $(TEST_FILES) 
 
 .PHONY: clean
 clean: 

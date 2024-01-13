@@ -8,12 +8,15 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+
 package config is 
 
-    constant BYTE_LEN : integer := 8; -- Bits
-    subtype byte is std_logic_vector(BYTE_LEN-1 downto 0);
+    constant BYTE_LEN : integer := 8; -- bits
 
-    constant WORD_LEN : integer := 4; -- Bytes
-    subtype word is std_logic_vector(BYTE_LEN*WORD_LEN-1 downto 0);
+    constant DATA_WORD_LEN : integer := 4; -- bytes
+    constant INSTR_WORD_LEN : integer := 4; -- bytes
+
+    constant DATA_MEM_SIZE : integer := 1024 * DATA_WORD_LEN; -- bytes
+    constant INSTR_MEM_SIZE : integer := 512 * INSTR_WORD_LEN; -- bytes
 
 end package;

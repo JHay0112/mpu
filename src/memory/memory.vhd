@@ -1,9 +1,7 @@
 -- Memory package
 --
--- Defines the processor's memory and the method of access.
--- Data and instruction word types are explicitly seperated from the word type defined in config.vhd
--- to ensure that they may be dealt with independently. Functions are provided to convert between
--- the types.
+-- Defines the processor's memory and the method of access. Addressing is always done in terms of
+-- bytes but words are selected
 --
 -- Author: J. L. Hay
 
@@ -13,16 +11,13 @@ use ieee.std_logic_1164.all;
 
 library work;
 use work.config.all;
+use work.math.log2;
 
 
 package memory is 
 
-    constant DATA_MEM_SIZE : integer := 1024; -- Bytes
-    constant INSTR_MEM_SIZE : integer := 512; -- Words
-
-    constant DATA_WORD_LEN : integer := 1; -- Bytes
-    constant INSTR_WORD_LEN : integer := 4; -- Bytes
-
+    constant DATA_MEM_ADDR_LEN : integer := log2(DATA_MEM_SIZE);
+    constant INSTR_MEM_ADDR_LEN : integer := log2(INSTR_MEM_SIZE);
 
     -- Register adresses
     constant X0  : integer := 0;
@@ -43,17 +38,13 @@ package memory is
     constant X15 : integer := 15;
     constant PC  : integer := 17; 
 
-    
-    -- Byte/word conversion
-    type word_byte_array is array (WORD_LEN-1 downto 0) of byte;
-
 
     component data_memory is 
         port(
             clk : in std_logic;
-            addr : in word;
-            d_in : in word;
-            d_out : out word;
+            addr : in std_logic_vector(DATA_MEM_ADDR_LEN-1 downto 0);
+            d_in : in std_logic_vector(DATA_WORD_LEN-1 downto 0);
+            d_out : out std_logic_vector(DATA_WORD_LEN-1 downto 0);
             rw : in std_logic
         );
     end component data_memory;
@@ -61,8 +52,8 @@ package memory is
     component instr_memory is 
         port(
             clk : in std_logic;
-            addr : in word;
-            d_out : out word
+            addr : in std_logic_vector(DATA_MEM_ADDR_LEN-1 downto 0);
+            d_out : out std_logic_vector(INSTR_WORD_LEN-1 downto 0)
         );
     end component instr_memory;
     

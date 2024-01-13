@@ -18,20 +18,20 @@ package logic is
 
 
     constant OPCODE_LEN : integer := 7;
-    subtype opcode is std_logic_vector(OPCODE_LEN-1 downto 0);
     
     -- ALU specification
     component alu is
         generic(
-            W : integer := WORD_LEN
+            WORD_LEN : integer := DATA_WORD_LEN;
+            OPCODE_LEN : integer := OPCODE_LEN
         );
         port(
             clk : in std_logic;
-            a : in word;
-            b : in word;
-            c : in opcode;
+            a : in std_logic_vector(WORD_LEN-1 downto 0);
+            b : in std_logic_vector(WORD_LEN-1 downto 0);
+            c : in std_logic_vector(OPCODE_LEN-1 downto 0);
             e : in std_logic;
-            o : out word
+            o : out std_logic_vector(WORD_LEN-1 downto 0)
         );
     end component;
 

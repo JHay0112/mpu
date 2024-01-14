@@ -11,6 +11,8 @@ use ieee.std_logic_1164.all;
 
 package config is 
 
+    constant CLOCK_PERIOD : time := 1 ns;
+
     constant BYTE_LEN : integer := 8; -- bits
 
     constant DATA_WORD_LEN : integer := 4; -- bytes

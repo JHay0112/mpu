@@ -6,6 +6,7 @@
 package math is
     
     pure function log2(x : positive) return natural;
+    pure function clamp(x : natural; l : natural; u : natural) return natural;
 
 end package;
 
@@ -24,6 +25,23 @@ package body math is
         end loop;
 
         return i;
+
+    end function;
+
+    -- Value clamping
+    pure function clamp(x : natural; l : natural; u : natural) return natural is
+        variable o : natural := 0;
+    begin
+
+        if (x <= l) then
+            o := l;
+        elsif (x >= u) then
+            o := u;
+        else
+            o := x;
+        end if;
+
+        return o;
 
     end function;
 

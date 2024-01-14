@@ -7,6 +7,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 library work;
 use work.config.all;
@@ -30,10 +31,26 @@ end entity onboard_memory;
 
 architecture behavioural of onboard_memory is 
 
-    type data is array(2**ADDR_LEN-1 downto 0) of std_logic_vector(BYTE_LEN-1 downto 0);
+    signal memory : std_logic_vector(BYTE_LEN*(ADDR_LEN*ADDR_LEN) + WORD_LEN downto 0) := (others => '0');
 
 begin
 
-    
+    main : process(clk) is
+        --
+    begin
+        if rising_edge(clk) then
+
+            d_out <= (others => 'X');
+
+            if (en = '1') then
+                if (rw = '1') then
+                    memory(to_integer(unsigned(addr))*BYTE_LEN + WORD_LEN - 1 downto to_integer(unsigned(addr)) * BYTE_LEN) <= d_in;
+                else
+                    d_out <= memory(to_integer(unsigned(addr))*BYTE_LEN + WORD_LEN - 1 downto to_integer(unsigned(addr)) * BYTE_LEN);
+                end if;
+            end if;
+
+        end if;
+    end process;
 
 end architecture behavioural;

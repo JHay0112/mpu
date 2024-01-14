@@ -40,20 +40,28 @@ package memory is
 
 
     component data_memory is 
+        generic(
+            WORD_LEN : integer := DATA_WORD_LEN*BYTE_LEN;
+            ADDR_LEN : integer := DATA_MEM_ADDR_LEN
+        );
         port(
             clk : in std_logic;
-            addr : in std_logic_vector(DATA_MEM_ADDR_LEN-1 downto 0);
-            d_in : in std_logic_vector(DATA_WORD_LEN-1 downto 0);
-            d_out : out std_logic_vector(DATA_WORD_LEN-1 downto 0);
+            addr : in std_logic_vector(ADDR_LEN-1 downto 0);
+            d_in : in std_logic_vector(WORD_LEN-1 downto 0);
+            d_out : out std_logic_vector(WORD_LEN-1 downto 0);
             rw : in std_logic
         );
     end component data_memory;
 
     component instr_memory is 
+        generic(
+            WORD_LEN : integer := INSTR_WORD_LEN*BYTE_LEN;
+            ADDR_LEN : integer := INSTR_MEM_ADDR_LEN
+        );
         port(
             clk : in std_logic;
-            addr : in std_logic_vector(DATA_MEM_ADDR_LEN-1 downto 0);
-            d_out : out std_logic_vector(INSTR_WORD_LEN-1 downto 0)
+            addr : in std_logic_vector(ADDR_LEN-1 downto 0);
+            d_out : out std_logic_vector(WORD_LEN-1 downto 0)
         );
     end component instr_memory;
     

@@ -36,8 +36,7 @@ architecture behavioural of onboard_memory is
 begin
 
     main : process(clk) is
-        variable upper_bound : integer;
-        variable lower_bound : integer;
+        --
     begin
         if rising_edge(clk) then
 

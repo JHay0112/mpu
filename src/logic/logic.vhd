@@ -3,20 +3,16 @@
 --
 -- Author: J. L. Hay
 
+
 library ieee;
 use ieee.std_logic_1164.all;
 
 library work;
 use work.config.all;
 
+
 package logic is 
-
     
-    component control is
-    
-    end component;
-
-
     constant OPCODE_LEN : integer := 7;
     
     -- ALU specification

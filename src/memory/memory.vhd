@@ -16,8 +16,8 @@ use work.math.log2;
 
 package memory is 
 
-    constant DATA_MEM_ADDR_LEN : integer := log2(DATA_MEM_SIZE);
-    constant INSTR_MEM_ADDR_LEN : integer := log2(INSTR_MEM_SIZE);
+    constant DATA_MEM_ADDR_LEN : integer := log2(DATA_MEM_SIZE/BYTE_LEN);
+    constant INSTR_MEM_ADDR_LEN : integer := log2(INSTR_MEM_SIZE/BYTE_LEN);
 
     -- Register adresses
     constant X0  : integer := 0;
@@ -41,7 +41,7 @@ package memory is
 
     component data_memory is 
         generic(
-            WORD_LEN : integer := DATA_WORD_LEN*BYTE_LEN;
+            WORD_LEN : integer := DATA_WORD_LEN;
             ADDR_LEN : integer := DATA_MEM_ADDR_LEN
         );
         port(
@@ -55,7 +55,7 @@ package memory is
 
     component instr_memory is 
         generic(
-            WORD_LEN : integer := INSTR_WORD_LEN*BYTE_LEN;
+            WORD_LEN : integer := INSTR_WORD_LEN;
             ADDR_LEN : integer := INSTR_MEM_ADDR_LEN
         );
         port(

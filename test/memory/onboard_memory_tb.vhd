@@ -36,6 +36,7 @@ architecture testbench of onboard_memory_tb is
         );
     end component onboard_memory;
 
+    constant HIGH_IMPEDANCE : std_logic_vector(WORD_LEN-1 downto 0) := (others => 'Z');
     constant ZEROS : std_logic_vector(WORD_LEN-1 downto 0) := (others => '0');
     constant ONES : std_logic_vector(WORD_LEN-1 downto 0) := (others => '1');
 
@@ -76,34 +77,53 @@ begin
     begin 
         report "Running testbench for memory/onboard_memory.vhd";
 
-        assert d_out = ZEROS
+        -- Check output is initially high impedance before enabling
+        assert d_out = HIGH_IMPEDANCE
             report "Default failed"
             severity error;
 
         wait for CLOCK_PERIOD/2;
 
+        -- Enable memory and write ones to initial address
+        addr <= "0000";
         en <= '1';
         rw <= '1';
         d_in <= ONES;
 
         wait for CLOCK_PERIOD;
 
+        -- Move back into read mode
         rw <= '0';
 
         wait for CLOCK_PERIOD/2;
 
+        -- Check output is the written data
         assert d_out = ONES
             report "Write failed"
             severity error;
 
         wait for CLOCK_PERIOD/2;
 
+        -- Move to next address
         addr <= "0001";
 
         wait for CLOCK_PERIOD/2;
 
+        -- Check that read is the initial value shifted by a byte
         assert d_out = x"00FFFFFF"
             report "Read failed"
+            severity error;
+
+        wait for CLOCK_PERIOD/2;
+
+        -- Disable memory
+        en <= '0';
+
+        wait for CLOCK_PERIOD/2;
+
+        -- Check that output moves back to high impedance
+        assert d_out = HIGH_IMPEDANCE
+            report "Turn off failed"
             severity error;
 
         wait for CLOCK_PERIOD/2;

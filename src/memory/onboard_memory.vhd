@@ -23,7 +23,7 @@ entity onboard_memory is
         en : in std_logic;
         addr : in std_logic_vector(ADDR_LEN-1 downto 0);
         d_in : in std_logic_vector(WORD_LEN-1 downto 0);
-        d_out : out std_logic_vector(WORD_LEN-1 downto 0);
+        d_out : out std_logic_vector(WORD_LEN-1 downto 0) := (others => 'Z');
         rw : in std_logic
     );
 end entity onboard_memory;
@@ -36,11 +36,12 @@ architecture behavioural of onboard_memory is
 begin
 
     main : process(clk) is
-        --
+        variable upper_bound : integer;
+        variable lower_bound : integer;
     begin
         if rising_edge(clk) then
 
-            d_out <= (others => 'X');
+            d_out <= (others => 'Z');
 
             if (en = '1') then
                 if (rw = '1') then
